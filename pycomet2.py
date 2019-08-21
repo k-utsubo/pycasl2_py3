@@ -986,7 +986,7 @@ class pyComet2:
             return reduce(lambda x,y: x+' '+y, ['%04x' % i for i in array])
 
         st = ''
-        for i in range(0, lines):
+        for i in range(0, int(lines)):
             addr = i * 8 + start_addr
             if 0xffff < addr: return
             st += '%04x: %-39s %-8s\n' % (addr, to_hex(self.memory[addr:addr+8]), to_char(self.memory[addr:addr+8]))

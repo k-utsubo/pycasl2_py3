@@ -1,0 +1,38 @@
+MAIN    START
+        LAD   GR1,ALPHA
+        LAD   GR2,BETA
+        LD    GR3,BETALEN
+        CALL  BSRH
+        RET
+ALPHA   DC    #49D6
+BETA    DC    #1D
+BETALEN DC    6
+        END
+BSRH    START
+        RPUSH
+        LD    GR0,=-1
+        LD    GR6,=#FFFF
+        SRL   GR6,0,GR3
+        XOR   GR6,=#FFFF
+        LD    GR4,0,GR1
+        LD    GR5,1,GR1
+        LD    GR1,=32
+        SUBA  GR1,GR3
+        LD    GR3,GR1
+LP      LD    GR7,GR4
+        AND   GR7,GR6
+        XOR   GR7,GR2
+        JZE   FOUND
+        SUBA  GR1,=1
+        JMI   FIN
+        SLL   GR4,1
+        SLL   GR5,1
+        JOV   NEXT
+        JUMP  LP
+NEXT    OR    GR4,=#0001
+        JUMP  LP
+FOUND   SUBA  GR3,GR1
+        LD    GR0,GR3
+FIN     RPOP
+        RET
+        END

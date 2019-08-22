@@ -216,8 +216,9 @@ class CASL2:
 ##             addr += len(c.code)
 
         print('\nDefined labels')
-        labels = self.symbols.values()
-        labels.sort(lambda x, y: cmp(x.lines, y.lines))
+        labels = list(self.symbols.values())
+        labels = sorted(labels, key=lambda x: x.lines)
+        #labels.sort(lambda x, y: cmp(x.lines, y.lines))
         for i in labels:
             print(i)
 
